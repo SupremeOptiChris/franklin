@@ -382,33 +382,39 @@ function decorateButtons(element) {
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
+      const isInsideColumns4Cols = a.closest('.columns-4-cols'); // Check if inside a .columns-4-cols div
+
       if (!a.querySelector('img')) {
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV') && !isInsideColumns4Cols) {
           a.className = 'button'; // default
           up.classList.add('button-container');
         }
-        if (
-          up.childNodes.length === 1
-          && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
-        ) {
-          a.className = 'button primary';
-          twoup.classList.add('button-container');
-        }
-        if (
-          up.childNodes.length === 1
-          && up.tagName === 'EM'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
-        ) {
-          a.className = 'button secondary';
-          twoup.classList.add('button-container');
+        // Apply primary or secondary styles only if not within a .columns-4-cols div
+        if (!isInsideColumns4Cols) {
+          if (
+            up.childNodes.length === 1
+            && up.tagName === 'STRONG'
+            && twoup.childNodes.length === 1
+            && twoup.tagName === 'P'
+          ) {
+            a.className = 'button primary';
+            twoup.classList.add('button-container');
+          }
+          if (
+            up.childNodes.length === 1
+            && up.tagName === 'EM'
+            && twoup.childNodes.length === 1
+            && twoup.tagName === 'P'
+          ) {
+            a.className = 'button secondary';
+            twoup.classList.add('button-container');
+          }
         }
       }
     }
   });
 }
+
 
 /**
  * Add <img> for icon, prefixed with codeBasePath and optional prefix.

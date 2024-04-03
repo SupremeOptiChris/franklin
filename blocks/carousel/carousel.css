@@ -21,6 +21,11 @@
   background-color: #e0e0e0;
 }
 
+.columns-3-cols button-container {
+    margin: 0 auto 0;
+    text-align: center;
+}
+
 
 .columns-3-cols h2 {
   font-size: 20px;
@@ -44,6 +49,14 @@
     position: absolute;
     top: -7px;
     left: -7px;
+}
+
+
+.columns-4-cols img {
+  width: 44px;
+    height: 44px;
+    display: inline-block;
+    margin-right: 8px;
 }
 
 .carousel .carousel-slides {
