@@ -378,25 +378,15 @@ function decorateTemplateAndTheme() {
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    // Set the title if not set already
     a.title = a.title || a.textContent;
-
-    // Ensure the link is not merely displaying the URL as text
     if (a.href !== a.textContent) {
       const up = a.parentElement;
-      const twoup = up.parentElement;
-
-      // Skip applying styles if the link is within a 'columns-4-cols' div
-      if (a.closest('.columns-4-cols')) return;
-
-      // Apply default button style if the link doesn't have an image and meets specific criteria
+      const twoup = a.parentElement.parentElement;
       if (!a.querySelector('img')) {
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
-          a.className = 'button';
+          a.className = 'button'; // default
           up.classList.add('button-container');
         }
-
-        // Apply primary button style based on structure
         if (
           up.childNodes.length === 1
           && up.tagName === 'STRONG'
@@ -406,8 +396,6 @@ function decorateButtons(element) {
           a.className = 'button primary';
           twoup.classList.add('button-container');
         }
-
-        // Apply secondary button style based on structure
         if (
           up.childNodes.length === 1
           && up.tagName === 'EM'
@@ -421,7 +409,6 @@ function decorateButtons(element) {
     }
   });
 }
-
 
 /**
  * Add <img> for icon, prefixed with codeBasePath and optional prefix.
