@@ -17,7 +17,7 @@
     position: relative;
 }
 
-.columns-3-cols div:hover {
+.columns-3-cols div div:hover {
   background-color: #e0e0e0;
 }
 
