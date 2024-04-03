@@ -378,37 +378,44 @@ function decorateTemplateAndTheme() {
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
+    // Set the title if not set already
     a.title = a.title || a.textContent;
+
+    // Ensure the link is not merely displaying the URL as text
     if (a.href !== a.textContent) {
       const up = a.parentElement;
-      const twoup = a.parentElement.parentElement;
-      const isInsideColumns4Cols = a.closest('.columns-4-cols'); // Check if inside a .columns-4-cols div
+      const twoup = up.parentElement;
 
+      // Skip applying styles if the link is within a 'columns-4-cols' div
+      if (a.closest('.columns-4-cols')) return;
+
+      // Apply default button style if the link doesn't have an image and meets specific criteria
       if (!a.querySelector('img')) {
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV') && !isInsideColumns4Cols) {
-          a.className = 'button'; // default
+        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+          a.className = 'button';
           up.classList.add('button-container');
         }
-        // Apply primary or secondary styles only if not within a .columns-4-cols div
-        if (!isInsideColumns4Cols) {
-          if (
-            up.childNodes.length === 1
-            && up.tagName === 'STRONG'
-            && twoup.childNodes.length === 1
-            && twoup.tagName === 'P'
-          ) {
-            a.className = 'button primary';
-            twoup.classList.add('button-container');
-          }
-          if (
-            up.childNodes.length === 1
-            && up.tagName === 'EM'
-            && twoup.childNodes.length === 1
-            && twoup.tagName === 'P'
-          ) {
-            a.className = 'button secondary';
-            twoup.classList.add('button-container');
-          }
+
+        // Apply primary button style based on structure
+        if (
+          up.childNodes.length === 1
+          && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1
+          && twoup.tagName === 'P'
+        ) {
+          a.className = 'button primary';
+          twoup.classList.add('button-container');
+        }
+
+        // Apply secondary button style based on structure
+        if (
+          up.childNodes.length === 1
+          && up.tagName === 'EM'
+          && twoup.childNodes.length === 1
+          && twoup.tagName === 'P'
+        ) {
+          a.className = 'button secondary';
+          twoup.classList.add('button-container');
         }
       }
     }
